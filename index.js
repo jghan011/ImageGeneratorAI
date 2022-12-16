@@ -1,3 +1,4 @@
+const path = require("path");
 //first we create simple express servere
 const express = require("express");
 const dotenv = require("dotenv").config();
@@ -11,6 +12,10 @@ const app = express();
 // {extended: false} The extended option allows to choose between parsing the URL-encoded data with the querystring library (when false) or the qs library (when true)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// SET STATIC FOLDER
+//the bellow is middleware for the Front End Site
+app.use(express.static(path.join(__dirname, "public"))); //now we get the index.html to display  with it's css
 
 // remeber we installed openai with npm i openai so we can use /openai
 app.use("/openai", require("./routes/openaiRoutes")); //we want to hit openai website and then from openaiRoutes.js use post for "generateimage"
